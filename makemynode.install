@@ -19,6 +19,7 @@
      node_save($node);
      $node_id = $node->nid;
      $_SESSION['recentid'] = $node_id;
+     $_SESSION['ournode'] = $node;
 
  }
 
@@ -26,14 +27,40 @@
 //      drupal_set_drupal('its working');
 //  }
 
-function makemynode_disable() {
+    // // $last = $_SESSION['recentid'];
+    // $ournode = $_SESSION['ournode'];
+    // // $ournode = node_load($last);
+    // $ournode->body[$ournode->language][0]['value'] = "THIS SHOULD BE DIFFERENT!";
+    // node_save($ournode);
+    //
 
-    $last = $_SESSION['recentid'];
+// function makemynode_view($node = node_load($_SESSION['recentid']), $view_mode = 'full') {
+//     drupal_set_message("HFHKLFJDLKFJCDL");
+//     //
+//     // $last = $_SESSION['recentid'];
+//     //
+//     // $ournode = node_load($last);
+//     // $node->body[$node->language][0]['value'] = "THIS SHOULD BE DIFFERENT!";
+//     // node_save($node);
+//
+//     //node_delete($last);
+//
+// }
 
-    $ournode = node_load($last);
-    $ournode->body[$ournode->language][0]['value'] = "THIS SHOULD BE DIFFERENT!";
-    node_save($ournode);
+function makemynode_node_info(){
+   return array(
+      'recipes' => array(
+         'name' => t('recipes'),
+         'module' => 'makemynode',
+         'description' => t('....'),
+         'has_title' => TRUE,
+         'title_label' => t('Title'),
+         'has_body' => TRUE,
+         'body_label' => t('Body'),
+     ),
+ );
+ }
 
-    //node_delete($last);
-
+function makemynode_recipes_view($node, $view_mode, $langcode = NULL) {
+    drupal_set_message('hfekfhdjkfhd');
 }
