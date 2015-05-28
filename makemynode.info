@@ -1,0 +1,5 @@
+name = Make My Node
+description = Test Node
+package = Epicodus Examples
+core = 7.x
+files[] = makemynode.install

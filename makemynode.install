@@ -1,0 +1,39 @@
+<?php
+/**
+ * Implement hook_enable()
+ */
+ function makemynode_enable() {
+     drupal_set_message($message = t('The makemynode module was successfully enabled.'), $type = 'status');
+     $node = new stdClass(); // We create a new node object
+     $node->type = "recipes"; // Or any other content type you want
+     $node->title = "Chicken";
+     $node->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+     $node->path = array('alias' => 'recipepath'); // Setting a node path
+     node_object_prepare($node);
+     $node->uid = 1; // Or any id you wish
+     // Let's add standard body field
+     $node->body[$node->language][0]['value'] = 'Heres how you make chicken';
+     $node->body[$node->language][0]['summary'] = 'Bar ba que';
+     $node->body[$node->language][0]['format'] = 'filtered_html';
+     $node = node_submit($node);
+     node_save($node);
+     $node_id = $node->nid;
+     $_SESSION['recentid'] = $node_id;
+
+ }
+
+// function node_load($nid = $_SESSION['recentid']) {
+//      drupal_set_drupal('its working');
+//  }
+
+function makemynode_disable() {
+
+    $last = $_SESSION['recentid'];
+
+    $ournode = node_load($last);
+    $ournode->body[$ournode->language][0]['value'] = "THIS SHOULD BE DIFFERENT!";
+    node_save($ournode);
+
+    //node_delete($last);
+
+}
